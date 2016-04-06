@@ -1,3 +1,6 @@
+SX files
+.DS_Store
+
 # Built application files
 *.apk
 *.ap_
@@ -25,8 +28,15 @@ proguard/
 # Log Files
 *.log
 
-# Android Studio Navigation editor temp files
-.navigation/
+# IDE Files
+.idea
+*.iml
+
+# Crashlytics
+crashlytics-build.properties
+com_crashlytics_export_strings.xml
 
 # Android Studio captures folder
 captures/
+
+
