@@ -3,6 +3,8 @@ package com.eftimoff.udacitypopmovies.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Created by georgieftimov on 07/04/16.
  */
@@ -11,9 +13,9 @@ public class Movie implements Parcelable {
     private String title;
     private String imageUrl;
     private String releaseDate;
-    private int runtime;
     private float score;
     private String genres;
+    private List<String> genreList;
     private String description;
 
     public Movie() {
@@ -43,14 +45,6 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    public int getRuntime() {
-        return runtime;
-    }
-
-    public void setRuntime(int time) {
-        this.runtime = time;
-    }
-
     public float getScore() {
         return score;
     }
@@ -67,6 +61,14 @@ public class Movie implements Parcelable {
         this.genres = genres;
     }
 
+    public List<String> getGenreList() {
+        return genreList;
+    }
+
+    public void setGenreList(List<String> genreList) {
+        this.genreList = genreList;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -81,21 +83,37 @@ public class Movie implements Parcelable {
                 "title='" + title + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
-                ", runtime=" + runtime +
                 ", score=" + score +
+                ", genres='" + genres + '\'' +
+                ", genreList=" + genreList +
                 ", description='" + description + '\'' +
                 '}';
     }
-
 
     protected Movie(Parcel in) {
         title = in.readString();
         imageUrl = in.readString();
         releaseDate = in.readString();
-        runtime = in.readInt();
         score = in.readFloat();
         genres = in.readString();
+        genreList = in.createStringArrayList();
         description = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(imageUrl);
+        dest.writeString(releaseDate);
+        dest.writeFloat(score);
+        dest.writeString(genres);
+        dest.writeStringList(genreList);
+        dest.writeString(description);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -110,19 +128,4 @@ public class Movie implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
-        dest.writeString(imageUrl);
-        dest.writeString(releaseDate);
-        dest.writeInt(runtime);
-        dest.writeFloat(score);
-        dest.writeString(genres);
-        dest.writeString(description);
-    }
 }

@@ -1,5 +1,6 @@
 package com.eftimoff.udacitypopmovies.common.repository.converters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,20 @@ public class MovieGenreHelper {
         genres.put(53, "Thriller");
         genres.put(10752, "War");
         genres.put(37, "Western");
+    }
+
+    public List<String> fromIdsToList(List<Integer> genreIds) {
+        final List<String> genreList = new ArrayList<>();
+        for (int i = 0; i < genreIds.size(); i++) {
+            final Integer id = genreIds.get(i);
+            final String genre = genres.get(id);
+            if (genre == null) {
+                //not existing
+                continue;
+            }
+            genreList.add(genre);
+        }
+        return genreList;
     }
 
     public String fromIds(List<Integer> genreIds) {

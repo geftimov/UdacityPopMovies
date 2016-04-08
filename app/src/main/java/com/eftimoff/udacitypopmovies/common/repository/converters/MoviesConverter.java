@@ -32,7 +32,7 @@ public class MoviesConverter implements Converter<MovieListDao, List<Movie>> {
             movie.setImageUrl("http://image.tmdb.org/t/p/w185/" + movieDao.getPosterPath());
             movie.setScore(movieDao.getVoteAverage());
             movie.setReleaseDate(movieDao.getReleaseDate());
-            movie.setRuntime(movieDao.getRuntime());
+            movie.setGenreList(movieGenreHelper.fromIdsToList(movieDao.getGenreIds()));
             movie.setGenres(movieGenreHelper.fromIds(movieDao.getGenreIds()));
             movies.add(movie);
         }
