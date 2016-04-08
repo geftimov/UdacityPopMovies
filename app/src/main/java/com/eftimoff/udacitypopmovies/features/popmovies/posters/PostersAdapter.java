@@ -38,7 +38,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
         Glide.with(holder.posterImageView.getContext())
                 .load(movie.getImageUrl())
                 .listener(GlidePalette.with(movie.getImageUrl())
-                        .use(GlidePalette.Profile.VIBRANT_DARK)
+                        .use(GlidePalette.Profile.MUTED_DARK)
                         .intoBackground(holder.movieInformationContainer)
                         .intoTextColor(holder.movieTitle)
                         .intoTextColor(holder.movieGenres))
