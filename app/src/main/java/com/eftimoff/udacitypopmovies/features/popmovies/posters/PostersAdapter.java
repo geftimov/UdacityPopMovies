@@ -10,10 +10,11 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.models.Movie;
+import com.github.florent37.glidepalette.BitmapPalette;
+import com.github.florent37.glidepalette.GlidePalette;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,9 +35,17 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
     @Override
     public void onBindViewHolder(final PostersViewHolder holder, int position) {
         final Movie movie = movies.get(position);
-        Glide.with(holder.posterImageView.getContext()).load(movie.getImageUrl()).into(holder.posterImageView);
+        Glide.with(holder.posterImageView.getContext())
+                .load(movie.getImageUrl())
+                .listener(GlidePalette.with(movie.getImageUrl())
+                        .use(GlidePalette.Profile.VIBRANT_DARK)
+                        .intoBackground(holder.movieInformationContainer)
+                        .intoTextColor(holder.movieTitle)
+                        .intoTextColor(holder.movieGenres))
+                .into(holder.posterImageView);
         holder.movieTitle.setText(movie.getTitle());
         holder.movieGenres.setText(movie.getGenres());
+
 //        holder.movieScore.setText(String.format(Locale.getDefault(), "%.2f", movie.getScore()));
     }
 
@@ -54,6 +63,8 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
 
         @Bind(R.id.posterImageView)
         ImageView posterImageView;
+        @Bind(R.id.movieInformationContainer)
+        View movieInformationContainer;
         @Bind(R.id.movieTitle)
         TextView movieTitle;
         @Bind(R.id.movieGenres)
