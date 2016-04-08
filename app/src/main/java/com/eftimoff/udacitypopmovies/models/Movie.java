@@ -10,6 +10,7 @@ public class Movie {
     private String releaseDate;
     private int runtime;
     private float score;
+    private String genres;
     private String description;
 
     public String getTitle() {
@@ -50,6 +51,14 @@ public class Movie {
 
     public void setScore(float score) {
         this.score = score;
+    }
+
+    public String getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String genres) {
+        this.genres = genres;
     }
 
     public String getDescription() {

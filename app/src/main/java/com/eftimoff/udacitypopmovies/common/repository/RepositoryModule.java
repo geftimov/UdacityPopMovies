@@ -1,5 +1,6 @@
 package com.eftimoff.udacitypopmovies.common.repository;
 
+import com.eftimoff.udacitypopmovies.common.repository.converters.MovieGenreHelper;
 import com.eftimoff.udacitypopmovies.common.repository.converters.MoviesConverter;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRepository;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRequestInterceptor;
@@ -17,8 +18,13 @@ import retrofit.RestAdapter;
 public class RepositoryModule {
 
     @Provides
-    MoviesConverter provideMoviesConverter() {
-        return new MoviesConverter();
+    MovieGenreHelper provideMovieGenreHelper() {
+        return new MovieGenreHelper();
+    }
+
+    @Provides
+    MoviesConverter provideMoviesConverter(final MovieGenreHelper movieGenreHelper) {
+        return new MoviesConverter(movieGenreHelper);
     }
 
     @Provides

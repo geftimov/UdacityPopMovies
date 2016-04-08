@@ -1,3 +1,13 @@
 <resources>
     <integer name="pop_movies_column_number">2</integer>
+
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+
+    <dimen name="text_normal">12sp</dimen>
+    <dimen name="text_large">16sp</dimen>
+    <dimen name="text_xlarge">20sp</dimen>
+    
+    <dimen name="poster_width">185dp</dimen>
+    <dimen name="poster_height">275dp</dimen>
 </resources>

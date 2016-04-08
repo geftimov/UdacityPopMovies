@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.eftimoff.udacitypopmovies.R;
@@ -12,6 +13,7 @@ import com.eftimoff.udacitypopmovies.models.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +34,10 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
     @Override
     public void onBindViewHolder(final PostersViewHolder holder, int position) {
         final Movie movie = movies.get(position);
-        Glide.with(holder.posterImageView.getContext()).load(movie.getImageUrl()).fitCenter().into(holder.posterImageView);
+        Glide.with(holder.posterImageView.getContext()).load(movie.getImageUrl()).into(holder.posterImageView);
+        holder.movieTitle.setText(movie.getTitle());
+        holder.movieGenres.setText(movie.getGenres());
+//        holder.movieScore.setText(String.format(Locale.getDefault(), "%.2f", movie.getScore()));
     }
 
     public void setMovies(List<Movie> movies) {
@@ -49,6 +54,10 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
 
         @Bind(R.id.posterImageView)
         ImageView posterImageView;
+        @Bind(R.id.movieTitle)
+        TextView movieTitle;
+        @Bind(R.id.movieGenres)
+        TextView movieGenres;
 
         public PostersViewHolder(View view) {
             super(view);
