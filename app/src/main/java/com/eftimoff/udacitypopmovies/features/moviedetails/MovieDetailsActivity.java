@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.common.BaseActivity;
+import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsFragment;
 
 public class MovieDetailsActivity extends BaseActivity {
 

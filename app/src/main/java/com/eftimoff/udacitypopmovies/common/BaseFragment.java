@@ -10,10 +10,9 @@ import android.support.v4.app.Fragment;
 public abstract class BaseFragment extends Fragment {
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         injectDependencies();
     }
-
     public abstract void injectDependencies();
 }
