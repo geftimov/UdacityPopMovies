@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".features.moviedetails.MovieDetailsActivity" />
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/posterImageView"
+        android:layout_width="@dimen/poster_width"
+        android:layout_height="@dimen/poster_height"
+        android:layout_margin="@dimen/margin_normal"
+        android:transitionName="@string/poster_transition_name" />
+
+
+</LinearLayout>

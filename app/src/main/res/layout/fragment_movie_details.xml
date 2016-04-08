@@ -4,5 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/posterImageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/poster_height"
+        android:background="@android:color/holo_blue_light"
+        android:transitionName="@string/poster_transition_name" />
+
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/movieContainer"
     android:layout_width="@dimen/poster_width"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,15 +9,15 @@
     <ImageView
         android:id="@+id/posterImageView"
         android:layout_width="@dimen/poster_width"
-        android:layout_height="@dimen/poster_height" />
+        android:layout_height="@dimen/poster_height"
+        android:transitionName="@string/poster_transition_name" />
 
     <RelativeLayout
         android:id="@+id/movieInformationContainer"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/poster_width"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/posterImageView"
-        android:background="@color/black"
         android:orientation="vertical"
         android:padding="@dimen/margin_normal">
 
