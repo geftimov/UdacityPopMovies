@@ -71,6 +71,10 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
         return movies.size();
     }
 
+    public List<Movie> getItems() {
+        return movies;
+    }
+
     public static class PostersViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.movieContainer)

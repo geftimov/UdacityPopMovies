@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.eftimoff.udacitypopmovies.features.popmovies.posters.di.PostersModule
 import com.eftimoff.udacitypopmovies.features.popmovies.posters.presenter.PostersPresenter;
 import com.eftimoff.udacitypopmovies.models.Movie;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,6 +35,8 @@ import butterknife.ButterKnife;
  * Created by georgieftimov on 06/04/16.
  */
 public class PostersFragment extends BaseFragment implements PostersView, PosterAdapterListener {
+
+    private static final String STATE_ITEMS = "items";
 
     @Bind(R.id.postersRecyclerView)
     RecyclerView postersRecyclerView;
@@ -61,13 +65,18 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
         postersRecyclerView.setHasFixedSize(true);
         postersRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.pop_movies_column_number)));
         postersRecyclerView.setAdapter(postersAdapter);
+        setHasOptionsMenu(true);
         return view;
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        postersPresenter.getPopularMovies();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            postersAdapter.setMovies((List<Movie>) savedInstanceState.getSerializable(STATE_ITEMS));
+        } else {
+            postersPresenter.getPopularMovies();
+        }
     }
 
     @Override
@@ -90,5 +99,34 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
         }
 
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(STATE_ITEMS, (ArrayList) postersAdapter.getItems());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.movies_menu_sort_top:
+                onMoviesTopClick();
+                break;
+            case R.id.movies_menu_sort_popular:
+                onMoviesPopularClick();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void onMoviesPopularClick() {
+        postersPresenter.getPopularMovies();
+    }
+
+    private void onMoviesTopClick() {
+        postersPresenter.getTopRatedMovies();
     }
 }

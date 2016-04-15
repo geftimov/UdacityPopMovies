@@ -46,7 +46,7 @@ public class RetrofitRepository implements Repository {
 
     @Override
     public void getTopRatedMovies(final RepositoryCallback<List<Movie>> callback) {
-        theMovieDbApi.getPopularMovies(new Callback<MovieListDao>() {
+        theMovieDbApi.getTopRatedMovies(new Callback<MovieListDao>() {
             @Override
             public void success(MovieListDao movies, Response response) {
                 callback.onSuccess(moviesConverter.convert(movies));

@@ -25,7 +25,7 @@ public class PostersPresenterImpl implements PostersPresenter {
 
     @Override
     public void getPopularMovies() {
-        retrofitRepository.getTopRatedMovies(new RepositoryCallback<List<Movie>>() {
+        retrofitRepository.getPopularMovies(new RepositoryCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
                 postersView.onMoviesSuccess(movies);
@@ -40,7 +40,7 @@ public class PostersPresenterImpl implements PostersPresenter {
 
     @Override
     public void getTopRatedMovies() {
-        retrofitRepository.getPopularMovies(new RepositoryCallback<List<Movie>>() {
+        retrofitRepository.getTopRatedMovies(new RepositoryCallback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> movies) {
                 postersView.onMoviesSuccess(movies);
