@@ -1,9 +1,40 @@
+import java.text.SimpleDateFormat
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
+class BuildConfig {
+
+    static final int versionMajor = 1
+    static final int versionMinor = 0
+    static final int versionFix = 0
+
+    String buildAuthor
+    String buildTimestamp
+    String gitAuthor
+    String gitSha
+    String gitComment
+    String gitBranchName
+    Properties envProperties;
+    Properties keystoreProperties;
+}
+
 ext {
-    keystoreProperties = new Properties()
-    keystoreProperties.load(new FileInputStream(rootDir.absolutePath + "/keys/key-details.properties"))
+    buildConfig = new BuildConfig()
+    buildConfig.buildAuthor = "git config --get user.name".execute().text.trim()
+    buildConfig.gitAuthor = "git log --format=%an -n 1 HEAD".execute().text.trim()
+    buildConfig.gitSha = "git rev-parse --short HEAD".execute().text.trim()
+    buildConfig.gitComment = "git log --format=%B -n 1 HEAD".execute().text.trim().replaceAll("[\r\n\t\"]", "")
+    buildConfig.gitBranchName = "git rev-parse --abbrev-ref HEAD".execute().text.trim()
+    buildConfig.buildTimestamp = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss.SSSZ")
+            .format(Calendar.getInstance().getTime())
+
+    buildConfig.envProperties = new Properties()
+    buildConfig.envProperties.load(new FileInputStream(rootDir.absolutePath + "/config/env-details.properties"))
+
+    buildConfig.keystoreProperties = new Properties()
+    buildConfig.keystoreProperties.load(new FileInputStream(rootDir.absolutePath + "/config/key-details.properties"))
+
 }
 
 android {
@@ -12,10 +43,10 @@ android {
 
     signingConfigs {
         release {
-            storeFile file("${rootDir.absolutePath}/${keystoreProperties.storeFile}")
-            storePassword keystoreProperties.storePassword
-            keyAlias keystoreProperties.keyAlias
-            keyPassword keystoreProperties.keyPassword
+            storeFile file("${rootDir.absolutePath}/${buildConfig.keystoreProperties.storeFile}")
+            storePassword buildConfig.keystoreProperties.storePassword
+            keyAlias buildConfig.keystoreProperties.keyAlias
+            keyPassword buildConfig.keystoreProperties.keyPassword
         }
     }
 
@@ -23,9 +54,21 @@ android {
         applicationId "com.eftimoff.udacitypopmovies"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode BuildConfig.versionMajor * 1000000 + BuildConfig.versionMinor * 10000 + BuildConfig.versionFix * 100
+        versionName "${BuildConfig.versionMajor}.${BuildConfig.versionMinor}.${BuildConfig.versionFix}"
+
+        buildConfigField "String", "BUILD_AUTHOR", "\"$buildConfig.buildAuthor\""
+        buildConfigField "String", "BUILD_TIMESTAMP", "\"$buildConfig.buildTimestamp\""
+        buildConfigField "String", "GIT_AUTHOR", "\"$buildConfig.gitAuthor\""
+        buildConfigField "String", "GIT_SHA", "\"$buildConfig.gitSha\""
+        buildConfigField "String", "GIT_COMMENT", "\"$buildConfig.gitComment\""
+        buildConfigField "String", "GIT_BRANCH_NAME", "\"$buildConfig.gitBranchName\""
+        buildConfigField "String", "ENDPOINT", "\"$buildConfig.envProperties.endpoint\""
+        buildConfigField "String", "API_KEY", "\"$buildConfig.envProperties.api_key\""
+
+        vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.release
@@ -36,8 +79,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
-
 }
 
 dependencies {

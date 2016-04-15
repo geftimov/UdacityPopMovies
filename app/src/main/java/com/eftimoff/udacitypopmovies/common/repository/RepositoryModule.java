@@ -1,5 +1,6 @@
 package com.eftimoff.udacitypopmovies.common.repository;
 
+import com.eftimoff.udacitypopmovies.BuildConfig;
 import com.eftimoff.udacitypopmovies.common.repository.converters.MovieGenreHelper;
 import com.eftimoff.udacitypopmovies.common.repository.converters.MoviesConverter;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRepository;
@@ -35,7 +36,7 @@ public class RepositoryModule {
     @Provides
     RestAdapter provideRestAdapter(final RequestInterceptor requestInterceptor) {
         return new RestAdapter.Builder()
-                .setEndpoint("https://api.themoviedb.org")
+                .setEndpoint(BuildConfig.ENDPOINT)
                 .setRequestInterceptor(requestInterceptor)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();

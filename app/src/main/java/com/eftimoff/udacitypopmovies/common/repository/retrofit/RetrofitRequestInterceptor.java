@@ -1,5 +1,7 @@
 package com.eftimoff.udacitypopmovies.common.repository.retrofit;
 
+import com.eftimoff.udacitypopmovies.BuildConfig;
+
 import retrofit.RequestInterceptor;
 
 /**
@@ -9,6 +11,6 @@ public class RetrofitRequestInterceptor implements RequestInterceptor {
 
     @Override
     public void intercept(RequestFacade request) {
-        request.addQueryParam("api_key", "976e918ccc65d572020713b1f9b050c4");
+        request.addQueryParam("api_key", BuildConfig.API_KEY);
     }
 }
