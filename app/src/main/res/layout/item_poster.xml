@@ -2,21 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movieContainer"
-    android:layout_width="@dimen/poster_width"
-    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:padding="4dp"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/posterImageView"
-        android:layout_width="@dimen/poster_width"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/poster_height"
-        android:transitionName="@string/poster_transition_name" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:transitionName="@string/poster_transition_name"
+        tools:background="@color/gold" />
+
+    <!--<com.ewintory.udacity.popularmovies.ui.widget.AspectLockedImageView-->
+    <!--android:id="@+id/movie_item_image"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:contentDescription="@string/movie_image_desc"-->
+    <!--android:scaleType="centerCrop"-->
+
+    <!--android:src="@color/movie_poster_placeholder"-->
+    <!--app:imageAspectRatio="@dimen/movie_item_image_aspect_ratio"-->
+    <!--tools:layout_width="300dp"-->
+    <!--tools:src="@drawable/placeholder_movie_item_image" />-->
 
     <RelativeLayout
         android:id="@+id/movieInformationContainer"
-        android:layout_width="@dimen/poster_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@+id/posterImageView"
         android:orientation="vertical"
         android:padding="@dimen/margin_normal">
