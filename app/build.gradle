@@ -1,9 +1,23 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
+ext {
+    keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(rootDir.absolutePath + "/keys/key-details.properties"))
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+
+    signingConfigs {
+        release {
+            storeFile file("${rootDir.absolutePath}/${keystoreProperties.storeFile}")
+            storePassword keystoreProperties.storePassword
+            keyAlias keystoreProperties.keyAlias
+            keyPassword keystoreProperties.keyPassword
+        }
+    }
 
     defaultConfig {
         applicationId "com.eftimoff.udacitypopmovies"
@@ -13,11 +27,17 @@ android {
         versionName "1.0"
     }
     buildTypes {
+        debug {w
+            signingConfig signingConfigs.release
+        }
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
