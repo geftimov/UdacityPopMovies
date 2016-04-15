@@ -27,7 +27,7 @@ android {
         versionName "1.0"
     }
     buildTypes {
-        debug {w
+        debug {
             signingConfig signingConfigs.release
         }
         release {
