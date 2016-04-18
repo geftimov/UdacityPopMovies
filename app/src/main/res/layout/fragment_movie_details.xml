@@ -1,15 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/posterImageView"
+    <RelativeLayout
+        android:id="@+id/movieContainer"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/poster_height"
-        android:background="@android:color/holo_blue_light"
-        android:transitionName="@string/poster_transition_name" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_toEndOf="@+id/movieImageView"
+            android:layout_toRightOf="@+id/movieImageView"
+            android:paddingBottom="@dimen/margin_normal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xlarge"
+            tools:text="Batman" />
+
+        <ImageView
+            android:id="@+id/movieImageView"
+            android:layout_width="@dimen/poster_width"
+            android:layout_height="@dimen/poster_height"
+            android:layout_margin="@dimen/margin_normal"
+            android:transitionName="@string/poster_transition_name" />
+
+        <TextView
+            android:id="@+id/movieScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieTitle"
+            android:layout_toEndOf="@+id/movieImageView"
+            android:layout_toRightOf="@+id/movieImageView"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xlarge"
+            android:textStyle="bold"
+            tools:text="@string/movie_score" />
+
+        <TextView
+            android:id="@+id/firstGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieScore"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_toEndOf="@+id/movieImageView"
+            android:layout_toRightOf="@+id/movieImageView"
+            android:background="@drawable/genre_background"
+            android:maxLines="1"
+            android:padding="@dimen/margin_small"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold"
+            tools:text="Action" />
+
+        <TextView
+            android:id="@+id/secondGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/firstGenre"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_toEndOf="@+id/movieImageView"
+            android:layout_toRightOf="@+id/movieImageView"
+            android:background="@drawable/genre_background"
+            android:maxLines="1"
+            android:padding="@dimen/margin_small"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold"
+            tools:text="Action" />
+
+        <TextView
+            android:id="@+id/thirdGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/secondGenre"
+            android:layout_toEndOf="@+id/movieImageView"
+            android:layout_toRightOf="@+id/movieImageView"
+            android:background="@drawable/genre_background"
+            android:maxLines="1"
+            android:padding="@dimen/margin_small"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold"
+            tools:text="Action" />
+
+        <TextView
+            android:id="@+id/movieDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieImageView"
+            android:padding="@dimen/margin_normal"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_large"
+            tools:text="A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion." />
 
 
-</LinearLayout>
+    </RelativeLayout>
+</ScrollView>

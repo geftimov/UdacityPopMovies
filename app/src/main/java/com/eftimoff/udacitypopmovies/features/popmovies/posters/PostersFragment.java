@@ -1,5 +1,6 @@
 package com.eftimoff.udacitypopmovies.features.popmovies.posters;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
@@ -46,6 +47,8 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
     @Inject
     PostersAdapter postersAdapter;
 
+    private PostersFragmentActions postersFragmentActions;
+
     public static PostersFragment newInstance() {
         return new PostersFragment();
     }
@@ -80,6 +83,14 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof PostersFragmentActions) {
+            postersFragmentActions = (PostersFragmentActions) activity;
+        }
+    }
+
+    @Override
     public void onMoviesSuccess(List<Movie> movies) {
         postersAdapter.setMovies(movies);
     }
@@ -91,14 +102,7 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
 
     @Override
     public void onMovieClicked(final View view, final Movie movie) {
-        final Intent intent = MovieDetailsActivity.getIntent(getActivity(), movie);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, getString(R.string.poster_transition_name));
-            startActivity(intent, options.toBundle());
-            return;
-        }
-
-        startActivity(intent);
+        postersFragmentActions.onMovieClicked(view, movie);
     }
 
     @Override

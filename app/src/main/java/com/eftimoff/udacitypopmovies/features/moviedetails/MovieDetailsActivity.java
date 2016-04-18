@@ -159,7 +159,6 @@ public class MovieDetailsActivity extends BaseActivity {
     private void initThirdGenre() {
         if (movie.getGenreList().size() < 3) {
             thirdGenre.setVisibility(View.GONE);
-
             return;
         }
         thirdGenre.setText(movie.getGenreList().get(2));
