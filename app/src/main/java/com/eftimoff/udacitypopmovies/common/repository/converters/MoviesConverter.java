@@ -27,6 +27,7 @@ public class MoviesConverter implements Converter<MovieListDao, List<Movie>> {
         final List<MovieDao> results = movieListDao.getResults();
         for (MovieDao movieDao : results) {
             final Movie movie = new Movie();
+            movie.setId(movieDao.getId());
             movie.setTitle(movieDao.getTitle());
             movie.setDescription(movieDao.getOverview());
             movie.setImageUrl("http://image.tmdb.org/t/p/w185/" + movieDao.getPosterPath());

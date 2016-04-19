@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -16,14 +17,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.eftimoff.udacitypopmovies.PopMoviesApplication;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.common.BaseActivity;
+import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsView;
+import com.eftimoff.udacitypopmovies.features.moviedetails.details.di.MovieDetailsModule;
+import com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter.MovieDetailsPresenter;
 import com.eftimoff.udacitypopmovies.models.Movie;
+import com.eftimoff.udacitypopmovies.models.Review;
+import com.eftimoff.udacitypopmovies.models.Video;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MovieDetailsActivity extends BaseActivity {
+public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView {
 
     private static final String EXTRA_MOVIE = "extra_movie";
     private static final int ANIM_DURATION = 350;
@@ -41,6 +52,8 @@ public class MovieDetailsActivity extends BaseActivity {
     @Bind(R.id.thirdGenre)
     TextView thirdGenre;
 
+    @Inject
+    MovieDetailsPresenter movieDetailsPresenter;
 
     private Movie movie;
 
@@ -50,11 +63,21 @@ public class MovieDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
         movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        movieDetailsPresenter.getVideos(movie.getId());
+        movieDetailsPresenter.getReviews(movie.getId());
         initActionBar();
         initImage();
         initScoreText();
         initDescriptionText();
         initGenres();
+    }
+
+    @Override
+    public void injectDependencies() {
+        PopMoviesApplication
+                .getComponent()
+                .plus(new MovieDetailsModule(this))
+                .inject(this);
     }
 
     private void initImage() {
@@ -177,12 +200,6 @@ public class MovieDetailsActivity extends BaseActivity {
         }, 400);
     }
 
-
-    @Override
-    public void injectDependencies() {
-
-    }
-
     public static Intent getIntent(final Context context, final Movie movie) {
         final Intent intent = new Intent(context, MovieDetailsActivity.class);
         intent.putExtra(EXTRA_MOVIE, movie);
@@ -205,5 +222,27 @@ public class MovieDetailsActivity extends BaseActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+    private static final String TAG = "MovieDetailsFragment";
+
+    @Override
+    public void onVideoSuccess(List<Video> videos) {
+        Log.d(TAG, "onVideoSuccess() called with: " + "videos = [" + videos + "]");
+    }
+
+    @Override
+    public void onVideoError(String message) {
+        Log.d(TAG, "onVideoError() called with: " + "message = [" + message + "]");
+    }
+
+    @Override
+    public void onReviewsSuccess(List<Review> reviews) {
+        Log.d(TAG, "onReviewsSuccess() called with: " + "reviews = [" + reviews + "]");
+    }
+
+    @Override
+    public void onReviewsError(String message) {
+        Log.d(TAG, "onReviewsError() called with: " + "message = [" + message + "]");
     }
 }

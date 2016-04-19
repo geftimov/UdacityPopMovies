@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Movie implements Parcelable {
 
+    private int id;
     private String title;
     private String imageUrl;
     private String releaseDate;
@@ -19,6 +20,15 @@ public class Movie implements Parcelable {
     private String description;
 
     public Movie() {
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -78,9 +88,46 @@ public class Movie implements Parcelable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Movie movie = (Movie) o;
+
+        if (id != movie.id) return false;
+        if (Float.compare(movie.score, score) != 0) return false;
+        if (title != null ? !title.equals(movie.title) : movie.title != null) return false;
+        if (imageUrl != null ? !imageUrl.equals(movie.imageUrl) : movie.imageUrl != null)
+            return false;
+        if (releaseDate != null ? !releaseDate.equals(movie.releaseDate) : movie.releaseDate != null)
+            return false;
+        if (genres != null ? !genres.equals(movie.genres) : movie.genres != null) return false;
+        if (genreList != null ? !genreList.equals(movie.genreList) : movie.genreList != null)
+            return false;
+        if (description != null ? !description.equals(movie.description) : movie.description != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
+        result = 31 * result + (releaseDate != null ? releaseDate.hashCode() : 0);
+        result = 31 * result + (score != +0.0f ? Float.floatToIntBits(score) : 0);
+        result = 31 * result + (genres != null ? genres.hashCode() : 0);
+        result = 31 * result + (genreList != null ? genreList.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "Movie{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
                 ", score=" + score +
@@ -91,6 +138,7 @@ public class Movie implements Parcelable {
     }
 
     protected Movie(Parcel in) {
+        id = in.readInt();
         title = in.readString();
         imageUrl = in.readString();
         releaseDate = in.readString();
@@ -102,6 +150,7 @@ public class Movie implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(imageUrl);
         dest.writeString(releaseDate);

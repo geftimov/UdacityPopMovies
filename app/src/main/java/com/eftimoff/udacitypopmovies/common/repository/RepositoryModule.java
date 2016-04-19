@@ -3,6 +3,8 @@ package com.eftimoff.udacitypopmovies.common.repository;
 import com.eftimoff.udacitypopmovies.BuildConfig;
 import com.eftimoff.udacitypopmovies.common.repository.converters.MovieGenreHelper;
 import com.eftimoff.udacitypopmovies.common.repository.converters.MoviesConverter;
+import com.eftimoff.udacitypopmovies.common.repository.converters.ReviewsConverter;
+import com.eftimoff.udacitypopmovies.common.repository.converters.VideosConverter;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRepository;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRequestInterceptor;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.TheMovieDbApi;
@@ -29,6 +31,16 @@ public class RepositoryModule {
     }
 
     @Provides
+    VideosConverter provideVideosConverter() {
+        return new VideosConverter();
+    }
+
+    @Provides
+    ReviewsConverter provideReviewsConverter() {
+        return new ReviewsConverter();
+    }
+
+    @Provides
     RequestInterceptor provideRequestInterceptor() {
         return new RetrofitRequestInterceptor();
     }
@@ -48,7 +60,7 @@ public class RepositoryModule {
     }
 
     @Provides
-    Repository provideRepository(final TheMovieDbApi theMovieDbApi, final MoviesConverter moviesConverter) {
-        return new RetrofitRepository(theMovieDbApi, moviesConverter);
+    Repository provideRepository(final TheMovieDbApi theMovieDbApi, final MoviesConverter moviesConverter, final VideosConverter videosConverter, final ReviewsConverter reviewsConverter) {
+        return new RetrofitRepository(theMovieDbApi, moviesConverter, videosConverter, reviewsConverter);
     }
 }

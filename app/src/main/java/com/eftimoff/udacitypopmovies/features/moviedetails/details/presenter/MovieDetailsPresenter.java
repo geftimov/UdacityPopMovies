@@ -5,4 +5,8 @@ package com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter;
  */
 public interface MovieDetailsPresenter {
 
+    void getVideos(final int movieId);
+
+    void getReviews(final int movieId);
+
 }
