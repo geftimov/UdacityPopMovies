@@ -21,10 +21,11 @@ import butterknife.ButterKnife;
 /**
  * Created by georgieftimov on 08/04/16.
  */
-public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersViewHolder> {
+public class PostersAdapter extends SelectableRecyclerViewAdapter<PostersAdapter.PostersViewHolder> {
 
     private PosterAdapterListener posterAdapterListener;
     private List<Movie> movies = new ArrayList<>();
+    private boolean isMasterDetailFlow;
 
     public PostersAdapter(PosterAdapterListener posterAdapterListener) {
         this.posterAdapterListener = posterAdapterListener;
@@ -35,6 +36,7 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
         final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_poster, parent, false);
         final PostersViewHolder postersViewHolder = new PostersViewHolder(view);
         setListeners(postersViewHolder);
+        isMasterDetailFlow = parent.getResources().getBoolean(R.bool.is_master_detail_flow);
         return postersViewHolder;
     }
 
@@ -42,14 +44,20 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.PostersV
         postersViewHolder.movieContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Movie movie = movies.get(postersViewHolder.getAdapterPosition());
-                posterAdapterListener.onMovieClicked(postersViewHolder.posterImageView,movie);
+                final int position = postersViewHolder.getAdapterPosition();
+                final Movie movie = movies.get(position);
+                posterAdapterListener.onMovieClicked(postersViewHolder.posterImageView, movie);
+                if (isMasterDetailFlow) {
+                    clearSelections();
+                    setSelected(position);
+                }
             }
         });
     }
 
     @Override
     public void onBindViewHolder(final PostersViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
         final Movie movie = movies.get(position);
         Glide.with(holder.posterImageView.getContext())
                 .load(movie.getImageUrl())
