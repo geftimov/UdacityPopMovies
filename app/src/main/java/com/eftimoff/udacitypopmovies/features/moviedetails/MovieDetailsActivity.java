@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -20,9 +21,8 @@ import com.bumptech.glide.Glide;
 import com.eftimoff.udacitypopmovies.PopMoviesApplication;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.common.BaseActivity;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsView;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.di.MovieDetailsModule;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter.MovieDetailsPresenter;
+import com.eftimoff.udacitypopmovies.features.moviedetails.di.MovieDetailsModule;
+import com.eftimoff.udacitypopmovies.features.moviedetails.presenter.MovieDetailsPresenter;
 import com.eftimoff.udacitypopmovies.models.Movie;
 import com.eftimoff.udacitypopmovies.models.Review;
 import com.eftimoff.udacitypopmovies.models.Video;
@@ -51,6 +51,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     TextView secondGenre;
     @Bind(R.id.thirdGenre)
     TextView thirdGenre;
+    @Bind(R.id.movieVideos)
+    RecyclerView movieVideos;
 
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;

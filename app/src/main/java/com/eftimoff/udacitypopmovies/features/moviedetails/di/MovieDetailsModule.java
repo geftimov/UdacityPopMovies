@@ -1,9 +1,9 @@
-package com.eftimoff.udacitypopmovies.features.moviedetails.details.di;
+package com.eftimoff.udacitypopmovies.features.moviedetails.di;
 
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRepository;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsView;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter.MovieDetailsPresenter;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter.MovieDetailsPresenterImpl;
+import com.eftimoff.udacitypopmovies.features.moviedetails.presenter.MovieDetailsPresenter;
+import com.eftimoff.udacitypopmovies.features.moviedetails.presenter.MovieDetailsPresenterImpl;
+import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsView;
 
 import dagger.Module;
 import dagger.Provides;

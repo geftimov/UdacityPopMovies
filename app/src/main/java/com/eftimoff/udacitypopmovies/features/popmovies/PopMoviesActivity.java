@@ -10,7 +10,7 @@ import android.view.View;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.common.BaseActivity;
 import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsActivity;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsFragment;
+import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsFragment;
 import com.eftimoff.udacitypopmovies.features.popmovies.posters.PostersFragment;
 import com.eftimoff.udacitypopmovies.features.popmovies.posters.PostersFragmentActions;
 import com.eftimoff.udacitypopmovies.models.Movie;

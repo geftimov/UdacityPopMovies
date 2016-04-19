@@ -1,4 +1,4 @@
-package com.eftimoff.udacitypopmovies.features.moviedetails.details;
+package com.eftimoff.udacitypopmovies.features.moviedetails;
 
 import com.eftimoff.udacitypopmovies.models.Review;
 import com.eftimoff.udacitypopmovies.models.Video;

@@ -1,4 +1,4 @@
-package com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter;
+package com.eftimoff.udacitypopmovies.features.moviedetails.presenter;
 
 /**
  * Created by georgieftimov on 07/04/16.

@@ -1,7 +1,7 @@
-package com.eftimoff.udacitypopmovies.features.moviedetails.details.di;
+package com.eftimoff.udacitypopmovies.features.moviedetails.di;
 
 import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsActivity;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsFragment;
+import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsFragment;
 
 import dagger.Subcomponent;
 

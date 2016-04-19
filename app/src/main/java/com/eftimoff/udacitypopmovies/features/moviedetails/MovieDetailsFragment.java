@@ -1,4 +1,4 @@
-package com.eftimoff.udacitypopmovies.features.moviedetails.details;
+package com.eftimoff.udacitypopmovies.features.moviedetails;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,8 +18,8 @@ import com.bumptech.glide.Glide;
 import com.eftimoff.udacitypopmovies.PopMoviesApplication;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.common.BaseFragment;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.di.MovieDetailsModule;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter.MovieDetailsPresenter;
+import com.eftimoff.udacitypopmovies.features.moviedetails.di.MovieDetailsModule;
+import com.eftimoff.udacitypopmovies.features.moviedetails.presenter.MovieDetailsPresenter;
 import com.eftimoff.udacitypopmovies.models.Movie;
 import com.eftimoff.udacitypopmovies.models.Review;
 import com.eftimoff.udacitypopmovies.models.Video;

@@ -1,8 +1,8 @@
-package com.eftimoff.udacitypopmovies.features.moviedetails.details.presenter;
+package com.eftimoff.udacitypopmovies.features.moviedetails.presenter;
 
 import com.eftimoff.udacitypopmovies.common.repository.RepositoryCallback;
 import com.eftimoff.udacitypopmovies.common.repository.retrofit.RetrofitRepository;
-import com.eftimoff.udacitypopmovies.features.moviedetails.details.MovieDetailsView;
+import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsView;
 import com.eftimoff.udacitypopmovies.models.Review;
 import com.eftimoff.udacitypopmovies.models.Video;
 
