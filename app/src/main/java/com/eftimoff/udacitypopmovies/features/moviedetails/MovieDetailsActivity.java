@@ -31,33 +31,37 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView {
 
     private static final String EXTRA_MOVIE = "extra_movie";
     private static final int ANIM_DURATION = 350;
-
-    @Bind(R.id.movieImageView)
+    private static final String TAG = "MovieDetailsFragment";
+    @BindView(R.id.movieImageView)
     ImageView movieImageView;
-    @Bind(R.id.movieScore)
+    @BindView(R.id.movieScore)
     TextView movieScore;
-    @Bind(R.id.movieDescription)
+    @BindView(R.id.movieDescription)
     TextView movieDescription;
-    @Bind(R.id.firstGenre)
+    @BindView(R.id.firstGenre)
     TextView firstGenre;
-    @Bind(R.id.secondGenre)
+    @BindView(R.id.secondGenre)
     TextView secondGenre;
-    @Bind(R.id.thirdGenre)
+    @BindView(R.id.thirdGenre)
     TextView thirdGenre;
-    @Bind(R.id.movieVideos)
+    @BindView(R.id.movieVideos)
     RecyclerView movieVideos;
-
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
-
     private Movie movie;
+
+    public static Intent getIntent(final Context context, final Movie movie) {
+        final Intent intent = new Intent(context, MovieDetailsActivity.class);
+        intent.putExtra(EXTRA_MOVIE, movie);
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,12 +206,6 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         }, 400);
     }
 
-    public static Intent getIntent(final Context context, final Movie movie) {
-        final Intent intent = new Intent(context, MovieDetailsActivity.class);
-        intent.putExtra(EXTRA_MOVIE, movie);
-        return intent;
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -225,8 +223,6 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         }
         return super.onOptionsItemSelected(menuItem);
     }
-
-    private static final String TAG = "MovieDetailsFragment";
 
     @Override
     public void onVideoSuccess(List<Video> videos) {

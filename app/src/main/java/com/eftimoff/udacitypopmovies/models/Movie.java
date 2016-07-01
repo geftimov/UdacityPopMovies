@@ -5,11 +5,19 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public class Movie implements Parcelable {
 
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
     private int id;
     private String title;
     private String imageUrl;
@@ -19,9 +27,20 @@ public class Movie implements Parcelable {
     private List<String> genreList;
     private String description;
 
+
     public Movie() {
     }
 
+    protected Movie(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        imageUrl = in.readString();
+        releaseDate = in.readString();
+        score = in.readFloat();
+        genres = in.readString();
+        genreList = in.createStringArrayList();
+        description = in.readString();
+    }
 
     public int getId() {
         return id;
@@ -137,17 +156,6 @@ public class Movie implements Parcelable {
                 '}';
     }
 
-    protected Movie(Parcel in) {
-        id = in.readInt();
-        title = in.readString();
-        imageUrl = in.readString();
-        releaseDate = in.readString();
-        score = in.readFloat();
-        genres = in.readString();
-        genreList = in.createStringArrayList();
-        description = in.readString();
-    }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
@@ -164,17 +172,5 @@ public class Movie implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
 
 }

@@ -14,9 +14,6 @@ import dagger.Provides;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 @Module
 public class RepositoryModule {
 

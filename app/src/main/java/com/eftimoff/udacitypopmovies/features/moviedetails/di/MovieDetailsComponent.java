@@ -5,9 +5,6 @@ import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsFragment;
 
 import dagger.Subcomponent;
 
-/**
- * Created by georgieftimov on 08/04/16.
- */
 @Subcomponent(modules = MovieDetailsModule.class)
 public interface MovieDetailsComponent {
 

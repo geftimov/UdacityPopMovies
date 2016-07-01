@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by georgieftimov on 08/04/16.
- */
 public class MovieGenreHelper {
 
     private Map<Integer, String> genres = new HashMap<>();

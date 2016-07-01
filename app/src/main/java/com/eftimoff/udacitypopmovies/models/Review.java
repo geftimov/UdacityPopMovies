@@ -3,15 +3,28 @@ package com.eftimoff.udacitypopmovies.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by georgieftimov on 19/04/16.
- */
 public class Review implements Parcelable {
 
+    public static final Creator<Review> CREATOR = new Creator<Review>() {
+        @Override
+        public Review createFromParcel(Parcel in) {
+            return new Review(in);
+        }
+
+        @Override
+        public Review[] newArray(int size) {
+            return new Review[size];
+        }
+    };
     private String author;
     private String text;
 
     public Review() {
+    }
+
+    protected Review(Parcel in) {
+        author = in.readString();
+        text = in.readString();
     }
 
     public String getAuthor() {
@@ -29,24 +42,6 @@ public class Review implements Parcelable {
     public void setText(String text) {
         this.text = text;
     }
-
-
-    protected Review(Parcel in) {
-        author = in.readString();
-        text = in.readString();
-    }
-
-    public static final Creator<Review> CREATOR = new Creator<Review>() {
-        @Override
-        public Review createFromParcel(Parcel in) {
-            return new Review(in);
-        }
-
-        @Override
-        public Review[] newArray(int size) {
-            return new Review[size];
-        }
-    };
 
     @Override
     public int describeContents() {

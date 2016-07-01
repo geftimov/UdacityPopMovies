@@ -3,11 +3,6 @@ package com.eftimoff.udacitypopmovies.common.repository.retrofit.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public class VideoDao {
 
     @SerializedName("id")

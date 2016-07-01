@@ -10,9 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
 
     private MovieDetailsView movieDetailsView;

@@ -14,7 +14,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public abstract void injectDependencies();
-    
+
     public void startFragment(final Fragment fragment, @IdRes final int containerResourceId) {
         getSupportFragmentManager().beginTransaction()
                 .replace(containerResourceId, fragment)

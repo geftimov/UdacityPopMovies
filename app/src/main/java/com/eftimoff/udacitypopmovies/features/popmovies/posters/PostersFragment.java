@@ -1,9 +1,6 @@
 package com.eftimoff.udacitypopmovies.features.popmovies.posters;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -17,7 +14,6 @@ import android.widget.Toast;
 import com.eftimoff.udacitypopmovies.PopMoviesApplication;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.common.BaseFragment;
-import com.eftimoff.udacitypopmovies.features.moviedetails.MovieDetailsActivity;
 import com.eftimoff.udacitypopmovies.features.popmovies.posters.adapter.PosterAdapterListener;
 import com.eftimoff.udacitypopmovies.features.popmovies.posters.adapter.PostersAdapter;
 import com.eftimoff.udacitypopmovies.features.popmovies.posters.di.PostersModule;
@@ -29,17 +25,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by georgieftimov on 06/04/16.
- */
 public class PostersFragment extends BaseFragment implements PostersView, PosterAdapterListener {
 
     private static final String STATE_ITEMS = "items";
 
-    @Bind(R.id.postersRecyclerView)
+    @BindView(R.id.postersRecyclerView)
     RecyclerView postersRecyclerView;
 
     @Inject

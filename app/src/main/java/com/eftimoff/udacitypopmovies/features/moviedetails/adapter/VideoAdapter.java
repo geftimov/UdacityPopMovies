@@ -1,4 +1,3 @@
-
 package com.eftimoff.udacitypopmovies.features.moviedetails.adapter;
 
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +12,9 @@ import com.eftimoff.udacitypopmovies.models.Video;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by georgieftimov on 08/04/16.
- */
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.PostersViewHolder> {
 
     private VideoAdapterListener videoAdapterListener;
@@ -69,7 +65,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.PostersViewH
 
     public static class PostersViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.videoText)
+        @BindView(R.id.videoText)
         TextView videoText;
 
         public PostersViewHolder(View view) {

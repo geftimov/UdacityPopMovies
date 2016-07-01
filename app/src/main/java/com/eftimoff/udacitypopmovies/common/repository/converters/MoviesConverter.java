@@ -9,9 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * Created by georgieftimov on 08/04/16.
- */
 public class MoviesConverter implements Converter<MovieListDao, List<Movie>> {
 
     private MovieGenreHelper movieGenreHelper;

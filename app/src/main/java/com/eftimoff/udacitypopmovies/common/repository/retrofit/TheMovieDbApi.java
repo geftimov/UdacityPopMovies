@@ -8,9 +8,6 @@ import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public interface TheMovieDbApi {
 
     @GET("/3/movie/popular")

@@ -21,8 +21,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * Rx java here?
- * Created by georgieftimov on 07/04/16.
+ * TODO Rx java here?
  */
 public class RetrofitRepository implements Repository {
 

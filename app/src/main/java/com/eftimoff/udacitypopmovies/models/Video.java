@@ -3,15 +3,28 @@ package com.eftimoff.udacitypopmovies.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-/**
- * Created by georgieftimov on 19/04/16.
- */
-public class Video implements Parcelable{
+public class Video implements Parcelable {
 
+    public static final Creator<Video> CREATOR = new Creator<Video>() {
+        @Override
+        public Video createFromParcel(Parcel in) {
+            return new Video(in);
+        }
+
+        @Override
+        public Video[] newArray(int size) {
+            return new Video[size];
+        }
+    };
     private String url;
     private String name;
 
     public Video() {
+    }
+
+    protected Video(Parcel in) {
+        url = in.readString();
+        name = in.readString();
     }
 
     public String getUrl() {
@@ -29,23 +42,6 @@ public class Video implements Parcelable{
     public void setName(String name) {
         this.name = name;
     }
-
-    protected Video(Parcel in) {
-        url = in.readString();
-        name = in.readString();
-    }
-
-    public static final Creator<Video> CREATOR = new Creator<Video>() {
-        @Override
-        public Video createFromParcel(Parcel in) {
-            return new Video(in);
-        }
-
-        @Override
-        public Video[] newArray(int size) {
-            return new Video[size];
-        }
-    };
 
     @Override
     public int describeContents() {

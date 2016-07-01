@@ -6,9 +6,6 @@ import android.util.SparseBooleanArray;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by georgieftimov on 19/04/16.
- */
 public abstract class SelectableRecyclerViewAdapter<H extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<H> {
 
     private SparseBooleanArray selectedItems = new SparseBooleanArray();

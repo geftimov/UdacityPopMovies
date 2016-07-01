@@ -15,12 +15,9 @@ import com.github.florent37.glidepalette.GlidePalette;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by georgieftimov on 08/04/16.
- */
 public class PostersAdapter extends SelectableRecyclerViewAdapter<PostersAdapter.PostersViewHolder> {
 
     private PosterAdapterListener posterAdapterListener;
@@ -85,15 +82,15 @@ public class PostersAdapter extends SelectableRecyclerViewAdapter<PostersAdapter
 
     public static class PostersViewHolder extends RecyclerView.ViewHolder {
 
-        @Bind(R.id.movieContainer)
+        @BindView(R.id.movieContainer)
         View movieContainer;
-        @Bind(R.id.posterImageView)
+        @BindView(R.id.posterImageView)
         ImageView posterImageView;
-        @Bind(R.id.movieInformationContainer)
+        @BindView(R.id.movieInformationContainer)
         View movieInformationContainer;
-        @Bind(R.id.movieTitle)
+        @BindView(R.id.movieTitle)
         TextView movieTitle;
-        @Bind(R.id.movieGenres)
+        @BindView(R.id.movieGenres)
         TextView movieGenres;
 
         public PostersViewHolder(View view) {

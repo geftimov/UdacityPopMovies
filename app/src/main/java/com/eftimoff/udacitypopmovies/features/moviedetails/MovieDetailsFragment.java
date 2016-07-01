@@ -28,38 +28,32 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by georgieftimov on 06/04/16.
- */
 public class MovieDetailsFragment extends BaseFragment implements MovieDetailsView {
 
     private static final String EXTRA_MOVIE = "extra_movie";
-
-    @Bind(R.id.movieTitle)
+    private static final String TAG = "MovieDetailsFragment";
+    @BindView(R.id.movieTitle)
     TextView movieTitle;
-    @Bind(R.id.movieImageView)
+    @BindView(R.id.movieImageView)
     ImageView movieImageView;
-    @Bind(R.id.movieScore)
+    @BindView(R.id.movieScore)
     TextView movieScore;
-    @Bind(R.id.firstGenre)
+    @BindView(R.id.firstGenre)
     TextView firstGenre;
-    @Bind(R.id.secondGenre)
+    @BindView(R.id.secondGenre)
     TextView secondGenre;
-    @Bind(R.id.thirdGenre)
+    @BindView(R.id.thirdGenre)
     TextView thirdGenre;
-    @Bind(R.id.movieDescription)
+    @BindView(R.id.movieDescription)
     TextView movieDescription;
-    @Bind(R.id.movieContainer)
+    @BindView(R.id.movieContainer)
     RelativeLayout movieContainer;
-
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
-
     private Movie movie;
-
 
     public static MovieDetailsFragment newInstance(final Movie movie) {
         final MovieDetailsFragment movieDetailsFragment = new MovieDetailsFragment();
@@ -127,8 +121,6 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
                 .plus(new MovieDetailsModule(this))
                 .inject(this);
     }
-
-    private static final String TAG = "MovieDetailsFragment";
 
     @Override
     public void onVideoSuccess(List<Video> videos) {

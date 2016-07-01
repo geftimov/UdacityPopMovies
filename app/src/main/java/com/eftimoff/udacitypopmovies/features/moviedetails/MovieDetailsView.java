@@ -5,9 +5,6 @@ import com.eftimoff.udacitypopmovies.models.Video;
 
 import java.util.List;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public interface MovieDetailsView {
 
     void onVideoSuccess(List<Video> videos);

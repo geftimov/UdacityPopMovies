@@ -6,9 +6,6 @@ import com.eftimoff.udacitypopmovies.models.Video;
 
 import java.util.List;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public interface Repository {
 
     void getPopularMovies(final RepositoryCallback<List<Movie>> callback);

@@ -38,8 +38,8 @@ ext {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion 24
+    buildToolsVersion "23.0.3"
 
     signingConfigs {
         release {
@@ -53,7 +53,7 @@ android {
     defaultConfig {
         applicationId "com.eftimoff.udacitypopmovies"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode BuildConfig.versionMajor * 1000000 + BuildConfig.versionMinor * 10000 + BuildConfig.versionFix * 100
         versionName "${BuildConfig.versionMajor}.${BuildConfig.versionMinor}.${BuildConfig.versionFix}"
 
@@ -83,16 +83,16 @@ android {
 
 dependencies {
     //Android
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.android.support:palette-v7:23.3.0'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:palette-v7:24.0.0'
     //Injection
     compile 'com.google.dagger:dagger:2.0.2'
     apt 'com.google.dagger:dagger-compiler:2.0.2'
     compile 'javax.annotation:javax.annotation-api:1.2'
     //View injection
-    compile 'com.jakewharton:butterknife:8.0.0-SNAPSHOT'
-    apt 'com.jakewharton:butterknife-compiler:8.0.0-SNAPSHOT'
+    compile 'com.jakewharton:butterknife:8.1.0'
+    apt 'com.jakewharton:butterknife-compiler:8.1.0'
     //Network
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.okhttp:okhttp:2.7.4'

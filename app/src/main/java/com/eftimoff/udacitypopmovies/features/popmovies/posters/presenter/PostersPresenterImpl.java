@@ -9,9 +9,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-/**
- * Created by georgieftimov on 07/04/16.
- */
 public class PostersPresenterImpl implements PostersPresenter {
 
     private PostersView postersView;
