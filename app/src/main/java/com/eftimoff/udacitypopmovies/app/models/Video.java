@@ -16,23 +16,23 @@ public class Video implements Parcelable {
             return new Video[size];
         }
     };
-    private String url;
+    private String key;
     private String name;
 
     public Video() {
     }
 
     protected Video(Parcel in) {
-        url = in.readString();
+        key = in.readString();
         name = in.readString();
     }
 
-    public String getUrl() {
-        return url;
+    public String getKey() {
+        return key;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
@@ -50,7 +50,7 @@ public class Video implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(url);
+        dest.writeString(key);
         dest.writeString(name);
     }
 }

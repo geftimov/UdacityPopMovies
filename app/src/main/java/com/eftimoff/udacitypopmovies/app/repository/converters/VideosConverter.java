@@ -1,8 +1,8 @@
 package com.eftimoff.udacitypopmovies.app.repository.converters;
 
+import com.eftimoff.udacitypopmovies.app.models.Video;
 import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.VideoDao;
 import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.VideoListDao;
-import com.eftimoff.udacitypopmovies.app.models.Video;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class VideosConverter implements Converter<VideoListDao, List<Video>> {
         final ArrayList<Video> videos = new ArrayList<>(videoListDao.getResults().size());
         for (final VideoDao videoDao : videoListDao.getResults()) {
             final Video video = new Video();
-            video.setUrl("https://www.youtube.com/watch?v=" + videoDao.getKey());
+            video.setKey(videoDao.getKey());
             video.setName(videoDao.getName());
             videos.add(video);
         }

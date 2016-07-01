@@ -6,4 +6,6 @@
     <string name="movies_menu_sort">Sort</string>
     <string name="movies_menu_sort_popular">Popular</string>
     <string name="movies_menu_sort_top">Top Rated</string>
+    <string name="trailers">Trailers</string>
+    <string name="reviews">Reviews</string>
 </resources>

@@ -21,11 +21,14 @@ import com.bumptech.glide.Glide;
 import com.eftimoff.udacitypopmovies.PopMoviesApplication;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.app.BaseActivity;
-import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
-import com.eftimoff.udacitypopmovies.moviedetails.presenter.MovieDetailsPresenter;
 import com.eftimoff.udacitypopmovies.app.models.Movie;
 import com.eftimoff.udacitypopmovies.app.models.Review;
 import com.eftimoff.udacitypopmovies.app.models.Video;
+import com.eftimoff.udacitypopmovies.app.utils.VideoHelper;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapter;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapterListener;
+import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
+import com.eftimoff.udacitypopmovies.moviedetails.presenter.MovieDetailsPresenter;
 
 import java.util.List;
 
@@ -34,11 +37,13 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView {
+public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView, VideoAdapterListener {
+
+    private static final String TAG = "MovieDetailsFragment";
 
     private static final String EXTRA_MOVIE = "extra_movie";
     private static final int ANIM_DURATION = 350;
-    private static final String TAG = "MovieDetailsFragment";
+
     @BindView(R.id.movieImageView)
     ImageView movieImageView;
     @BindView(R.id.movieScore)
@@ -53,8 +58,22 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     TextView thirdGenre;
     @BindView(R.id.movieVideos)
     RecyclerView movieVideos;
+    @BindView(R.id.movieVideoTitle)
+    TextView movieVideoTitle;
+    @BindView(R.id.movieReviewsTitle)
+    TextView movieReviewsTitle;
+    @BindView(R.id.movieReviews)
+    RecyclerView movieReviews;
+
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
+    @Inject
+    RecyclerView.LayoutManager layoutManager;
+    @Inject
+    VideoAdapter videoAdapter;
+    @Inject
+    VideoHelper videoHelper;
+
     private Movie movie;
 
     public static Intent getIntent(final Context context, final Movie movie) {
@@ -69,20 +88,27 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
         movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
-        movieDetailsPresenter.getVideos(movie.getId());
-        movieDetailsPresenter.getReviews(movie.getId());
         initActionBar();
         initImage();
         initScoreText();
         initDescriptionText();
         initGenres();
+        initLists();
+        movieDetailsPresenter.getVideos(movie.getId());
+        movieDetailsPresenter.getReviews(movie.getId());
+    }
+
+    private void initLists() {
+        movieVideos.setHasFixedSize(true);
+        movieVideos.setLayoutManager(layoutManager);
+        movieVideos.setAdapter(videoAdapter);
     }
 
     @Override
     public void injectDependencies() {
         PopMoviesApplication
                 .getComponent()
-                .plus(new MovieDetailsModule(this))
+                .plus(new MovieDetailsModule(this, this))
                 .inject(this);
     }
 
@@ -226,7 +252,11 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
 
     @Override
     public void onVideoSuccess(List<Video> videos) {
-        Log.d(TAG, "onVideoSuccess() called with: " + "videos = [" + videos + "]");
+        if (!videos.isEmpty()) {
+            movieVideoTitle.setVisibility(View.VISIBLE);
+            movieVideos.setVisibility(View.VISIBLE);
+            videoAdapter.setVideos(videos);
+        }
     }
 
     @Override
@@ -242,5 +272,10 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     @Override
     public void onReviewsError(String message) {
         Log.d(TAG, "onReviewsError() called with: " + "message = [" + message + "]");
+    }
+
+    @Override
+    public void onVideoClick(Video video) {
+        videoHelper.watchYoutubeVideo(video.getKey());
     }
 }

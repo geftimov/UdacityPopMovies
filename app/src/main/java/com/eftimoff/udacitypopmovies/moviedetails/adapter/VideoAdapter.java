@@ -59,10 +59,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.PostersViewH
         return videos.size();
     }
 
-    public List<Video> getItems() {
-        return videos;
-    }
-
     public static class PostersViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.videoText)

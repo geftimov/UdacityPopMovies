@@ -87,11 +87,43 @@
             android:textSize="@dimen/text_large"
             tools:text="A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.        " />
 
+
+        <TextView
+            android:id="@+id/movieVideoTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieDescription"
+            android:padding="@dimen/margin_normal"
+            android:text="@string/trailers"
+            android:textColor="@color/gold"
+            android:textSize="@dimen/text_large"
+            android:visibility="gone" />
+
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/movieVideos"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_below="@+id/movieDescription" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieVideoTitle"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/movieReviewsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieVideos"
+            android:padding="@dimen/margin_normal"
+            android:text="@string/reviews"
+            android:textColor="@color/gold"
+            android:textSize="@dimen/text_large"
+            android:visibility="gone" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movieReviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieReviewsTitle"
+            android:visibility="gone" />
 
     </RelativeLayout>
 </ScrollView>
