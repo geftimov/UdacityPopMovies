@@ -2,9 +2,9 @@ package com.eftimoff.udacitypopmovies;
 
 import android.app.Application;
 
-import com.eftimoff.udacitypopmovies.common.di.DaggerPopMoviesComponent;
-import com.eftimoff.udacitypopmovies.common.di.PopMovieModule;
-import com.eftimoff.udacitypopmovies.common.di.PopMoviesComponent;
+import com.eftimoff.udacitypopmovies.app.di.DaggerPopMoviesComponent;
+import com.eftimoff.udacitypopmovies.app.di.PopMovieModule;
+import com.eftimoff.udacitypopmovies.app.di.PopMoviesComponent;
 
 public class PopMoviesApplication extends Application {
 

@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".features.popmovies.PopMoviesActivity">
+        <activity android:name=".popmovies.PopMoviesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".features.moviedetails.MovieDetailsActivity" />
+        <activity android:name=".moviedetails.MovieDetailsActivity" />
     </application>
 
 </manifest>
