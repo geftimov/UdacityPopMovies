@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.eftimoff.udacitypopmovies.app.repository.retrofit.RetrofitRepository;
 import com.eftimoff.udacitypopmovies.moviedetails.MovieDetailsView;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapter;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapter;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.presenter.MovieDetailsPresenter;
@@ -19,10 +21,12 @@ public class MovieDetailsModule {
 
     private MovieDetailsView movieDetailsView;
     private VideoAdapterListener videoAdapterListener;
+    private ReviewAdapterListener reviewAdapterListener;
 
-    public MovieDetailsModule(MovieDetailsView movieDetailsView, VideoAdapterListener videoAdapterListener) {
+    public MovieDetailsModule(MovieDetailsView movieDetailsView, VideoAdapterListener videoAdapterListener, ReviewAdapterListener reviewAdapterListener) {
         this.movieDetailsView = movieDetailsView;
         this.videoAdapterListener = videoAdapterListener;
+        this.reviewAdapterListener = reviewAdapterListener;
     }
 
     @Provides
@@ -31,12 +35,12 @@ public class MovieDetailsModule {
     }
 
     @Provides
-    RecyclerView.LayoutManager provideLayoutManager(final Context context) {
-        return new LinearLayoutManager(context);
+    VideoAdapter provideVideoAdapter() {
+        return new VideoAdapter(videoAdapterListener);
     }
 
     @Provides
-    VideoAdapter provideVideoAdapter() {
-        return new VideoAdapter(videoAdapterListener);
+    ReviewAdapter provideReviewAdapter() {
+        return new ReviewAdapter(reviewAdapterListener);
     }
 }

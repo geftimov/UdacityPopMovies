@@ -6,11 +6,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -25,6 +25,8 @@ import com.eftimoff.udacitypopmovies.app.models.Movie;
 import com.eftimoff.udacitypopmovies.app.models.Review;
 import com.eftimoff.udacitypopmovies.app.models.Video;
 import com.eftimoff.udacitypopmovies.app.utils.VideoHelper;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapter;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapter;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
@@ -37,9 +39,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView, VideoAdapterListener {
-
-    private static final String TAG = "MovieDetailsFragment";
+public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView, VideoAdapterListener, ReviewAdapterListener {
 
     private static final String EXTRA_MOVIE = "extra_movie";
     private static final int ANIM_DURATION = 350;
@@ -68,9 +68,9 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
     @Inject
-    RecyclerView.LayoutManager layoutManager;
-    @Inject
     VideoAdapter videoAdapter;
+    @Inject
+    ReviewAdapter reviewAdapter;
     @Inject
     VideoHelper videoHelper;
 
@@ -98,17 +98,11 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         movieDetailsPresenter.getReviews(movie.getId());
     }
 
-    private void initLists() {
-        movieVideos.setHasFixedSize(true);
-        movieVideos.setLayoutManager(layoutManager);
-        movieVideos.setAdapter(videoAdapter);
-    }
-
     @Override
     public void injectDependencies() {
         PopMoviesApplication
                 .getComponent()
-                .plus(new MovieDetailsModule(this, this))
+                .plus(new MovieDetailsModule(this, this, this))
                 .inject(this);
     }
 
@@ -232,6 +226,18 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         }, 400);
     }
 
+
+    private void initLists() {
+        movieVideos.setNestedScrollingEnabled(false);
+        movieVideos.setHasFixedSize(true);
+        movieVideos.setLayoutManager(new LinearLayoutManager(this));
+        movieVideos.setAdapter(videoAdapter);
+        movieReviews.setNestedScrollingEnabled(false);
+        movieReviews.setHasFixedSize(true);
+        movieReviews.setLayoutManager(new LinearLayoutManager(this));
+        movieReviews.setAdapter(reviewAdapter);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -261,21 +267,32 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
 
     @Override
     public void onVideoError(String message) {
-        Log.d(TAG, "onVideoError() called with: " + "message = [" + message + "]");
+        movieVideoTitle.setVisibility(View.GONE);
+        movieVideos.setVisibility(View.GONE);
     }
 
     @Override
     public void onReviewsSuccess(List<Review> reviews) {
-        Log.d(TAG, "onReviewsSuccess() called with: " + "reviews = [" + reviews + "]");
+        if (!reviews.isEmpty()) {
+            movieReviewsTitle.setVisibility(View.VISIBLE);
+            movieReviews.setVisibility(View.VISIBLE);
+            reviewAdapter.setReviews(reviews);
+        }
     }
 
     @Override
     public void onReviewsError(String message) {
-        Log.d(TAG, "onReviewsError() called with: " + "message = [" + message + "]");
+        movieReviewsTitle.setVisibility(View.GONE);
+        movieReviews.setVisibility(View.GONE);
     }
 
     @Override
     public void onVideoClick(Video video) {
         videoHelper.watchYoutubeVideo(video.getKey());
+    }
+
+    @Override
+    public void onReviewClick(Review review) {
+
     }
 }

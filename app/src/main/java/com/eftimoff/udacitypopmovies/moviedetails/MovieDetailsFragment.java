@@ -21,6 +21,7 @@ import com.eftimoff.udacitypopmovies.app.BaseFragment;
 import com.eftimoff.udacitypopmovies.app.models.Movie;
 import com.eftimoff.udacitypopmovies.app.models.Review;
 import com.eftimoff.udacitypopmovies.app.models.Video;
+import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
 import com.eftimoff.udacitypopmovies.moviedetails.presenter.MovieDetailsPresenter;
@@ -32,7 +33,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailsFragment extends BaseFragment implements MovieDetailsView, VideoAdapterListener {
+public class MovieDetailsFragment extends BaseFragment implements MovieDetailsView, VideoAdapterListener, ReviewAdapterListener {
 
     private static final String EXTRA_MOVIE = "extra_movie";
     private static final String TAG = "MovieDetailsFragment";
@@ -119,7 +120,7 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     public void injectDependencies() {
         PopMoviesApplication
                 .getComponent()
-                .plus(new MovieDetailsModule(this, this))
+                .plus(new MovieDetailsModule(this, this, this))
                 .inject(this);
     }
 
@@ -145,6 +146,11 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
 
     @Override
     public void onVideoClick(Video video) {
+
+    }
+
+    @Override
+    public void onReviewClick(Review review) {
 
     }
 }
