@@ -1,9 +1,5 @@
 package com.eftimoff.udacitypopmovies.moviedetails.di;
 
-import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-
 import com.eftimoff.udacitypopmovies.app.repository.retrofit.RetrofitRepository;
 import com.eftimoff.udacitypopmovies.moviedetails.MovieDetailsView;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapter;
