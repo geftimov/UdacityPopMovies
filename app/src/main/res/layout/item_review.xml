@@ -28,6 +28,8 @@
             android:id="@+id/reviewText"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:maxLines="15"
             android:padding="@dimen/margin_small"
             android:textColor="@color/white"
             android:textSize="@dimen/text_large"
