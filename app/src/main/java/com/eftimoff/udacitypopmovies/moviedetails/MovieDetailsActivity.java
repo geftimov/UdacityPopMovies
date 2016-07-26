@@ -246,7 +246,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     @OnClick(R.id.movieFavourite)
     public void onMovieFavourite() {
         if (movieFavourite.isChecked()) {
-            movieDetailsPresenter.saveFavourite(movie);
+            movieDetailsPresenter.saveFavourite(movie, reviewAdapter.getReviews(), videoAdapter.getVideos());
         } else {
             movieDetailsPresenter.removeFavourite(movie);
         }

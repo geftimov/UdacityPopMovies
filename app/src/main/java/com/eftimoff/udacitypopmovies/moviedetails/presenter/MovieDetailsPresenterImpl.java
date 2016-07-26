@@ -5,7 +5,6 @@ import com.eftimoff.udacitypopmovies.app.models.Review;
 import com.eftimoff.udacitypopmovies.app.models.Video;
 import com.eftimoff.udacitypopmovies.app.repository.Repository;
 import com.eftimoff.udacitypopmovies.app.repository.RepositoryCallback;
-import com.eftimoff.udacitypopmovies.app.repository.retrofit.RetrofitRepository;
 import com.eftimoff.udacitypopmovies.moviedetails.MovieDetailsView;
 
 import java.util.List;
@@ -55,16 +54,16 @@ public class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
 
     @Override
     public boolean isFavourite(int movieId) {
-        return false;
+        return repository.isFavourite(movieId);
     }
 
     @Override
-    public void saveFavourite(Movie movie) {
-
+    public void saveFavourite(Movie movie, List<Review> review, List<Video> video) {
+        repository.saveFavourite(movie, review, video);
     }
 
     @Override
     public void removeFavourite(Movie movie) {
-
+        repository.removeFavourite(movie.getId());
     }
 }

@@ -1,6 +1,6 @@
 package com.eftimoff.udacitypopmovies.moviedetails.di;
 
-import com.eftimoff.udacitypopmovies.app.repository.retrofit.RetrofitRepository;
+import com.eftimoff.udacitypopmovies.app.repository.RepositoryImpl;
 import com.eftimoff.udacitypopmovies.moviedetails.MovieDetailsView;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapter;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.ReviewAdapterListener;
@@ -26,8 +26,8 @@ public class MovieDetailsModule {
     }
 
     @Provides
-    MovieDetailsPresenter providePostersPresenter(final RetrofitRepository retrofitRepository) {
-        return new MovieDetailsPresenterImpl(movieDetailsView, retrofitRepository);
+    MovieDetailsPresenter providePostersPresenter(final RepositoryImpl repositoryImpl) {
+        return new MovieDetailsPresenterImpl(movieDetailsView, repositoryImpl);
     }
 
     @Provides

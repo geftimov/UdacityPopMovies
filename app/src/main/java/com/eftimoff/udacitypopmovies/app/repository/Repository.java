@@ -18,7 +18,7 @@ public interface Repository {
 
     boolean isFavourite(int movieId);
 
-    void saveFavourite(Movie movie);
+    void saveFavourite(Movie movie, List<Review> review, List<Video> video);
 
-    void removeFavourite(Movie movie);
+    void removeFavourite(int movieId);
 }

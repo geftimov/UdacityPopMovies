@@ -59,6 +59,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.PostersVie
         return reviews.size();
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
     public static class PostersViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.reviewAuthor)

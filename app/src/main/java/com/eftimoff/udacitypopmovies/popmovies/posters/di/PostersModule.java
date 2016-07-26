@@ -1,6 +1,6 @@
 package com.eftimoff.udacitypopmovies.popmovies.posters.di;
 
-import com.eftimoff.udacitypopmovies.app.repository.retrofit.RetrofitRepository;
+import com.eftimoff.udacitypopmovies.app.repository.RepositoryImpl;
 import com.eftimoff.udacitypopmovies.popmovies.posters.PostersFragment;
 import com.eftimoff.udacitypopmovies.popmovies.posters.adapter.PostersAdapter;
 import com.eftimoff.udacitypopmovies.popmovies.posters.presenter.PostersPresenter;
@@ -24,8 +24,8 @@ public class PostersModule {
     }
 
     @Provides
-    PostersPresenter providePostersPresenter(final RetrofitRepository retrofitRepository) {
-        return new PostersPresenterImpl(postersFragment, retrofitRepository);
+    PostersPresenter providePostersPresenter(final RepositoryImpl repositoryImpl) {
+        return new PostersPresenterImpl(postersFragment, repositoryImpl);
     }
 
 }

@@ -1,16 +1,17 @@
-package com.eftimoff.udacitypopmovies.app.repository.retrofit;
+package com.eftimoff.udacitypopmovies.app.repository;
 
-import com.eftimoff.udacitypopmovies.app.repository.Repository;
-import com.eftimoff.udacitypopmovies.app.repository.RepositoryCallback;
-import com.eftimoff.udacitypopmovies.app.repository.converters.MoviesConverter;
-import com.eftimoff.udacitypopmovies.app.repository.converters.ReviewsConverter;
-import com.eftimoff.udacitypopmovies.app.repository.converters.VideosConverter;
-import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.MovieListDao;
-import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.ReviewListDao;
-import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.VideoListDao;
 import com.eftimoff.udacitypopmovies.app.models.Movie;
 import com.eftimoff.udacitypopmovies.app.models.Review;
 import com.eftimoff.udacitypopmovies.app.models.Video;
+import com.eftimoff.udacitypopmovies.app.repository.converters.MoviesConverter;
+import com.eftimoff.udacitypopmovies.app.repository.converters.ReviewsConverter;
+import com.eftimoff.udacitypopmovies.app.repository.converters.VideosConverter;
+import com.eftimoff.udacitypopmovies.app.repository.retrofit.TheMovieDbApi;
+import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.MovieListDao;
+import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.ReviewListDao;
+import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.VideoListDao;
+import com.eftimoff.udacitypopmovies.app.repository.storage.LocalStorage;
+import com.eftimoff.udacitypopmovies.app.repository.storage.MovieWrapper;
 
 import java.util.List;
 
@@ -20,19 +21,21 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class RetrofitRepository implements Repository {
+public class RepositoryImpl implements Repository {
 
     private TheMovieDbApi theMovieDbApi;
     private MoviesConverter moviesConverter;
     private VideosConverter videosConverter;
     private ReviewsConverter reviewsConverter;
+    private LocalStorage localStorage;
 
     @Inject
-    public RetrofitRepository(final TheMovieDbApi theMovieDbApi, final MoviesConverter moviesConverter, final VideosConverter videosConverter, final ReviewsConverter reviewsConverter) {
+    public RepositoryImpl(TheMovieDbApi theMovieDbApi, MoviesConverter moviesConverter, VideosConverter videosConverter, ReviewsConverter reviewsConverter, LocalStorage localStorage) {
         this.theMovieDbApi = theMovieDbApi;
         this.moviesConverter = moviesConverter;
         this.videosConverter = videosConverter;
         this.reviewsConverter = reviewsConverter;
+        this.localStorage = localStorage;
     }
 
     @Override
@@ -99,16 +102,17 @@ public class RetrofitRepository implements Repository {
 
     @Override
     public boolean isFavourite(int movieId) {
-        return false;
+        return localStorage.getFavourite(movieId) != null;
     }
 
     @Override
-    public void saveFavourite(Movie movie) {
-
+    public void saveFavourite(Movie movie, List<Review> review, List<Video> video) {
+        final MovieWrapper movieWrapper = new MovieWrapper(movie.getId(), movie, review, video);
+        localStorage.saveFavourite(movieWrapper);
     }
 
     @Override
-    public void removeFavourite(Movie movie) {
-
+    public void removeFavourite(int movieId) {
+        localStorage.removeFavourite(movieId);
     }
 }
