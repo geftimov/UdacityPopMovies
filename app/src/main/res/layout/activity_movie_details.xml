@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -14,6 +15,7 @@
             android:layout_width="@dimen/poster_width"
             android:layout_height="@dimen/poster_height"
             android:layout_margin="@dimen/margin_normal"
+            android:contentDescription="@string/content_description_poster"
             android:transitionName="@string/poster_transition_name" />
 
         <TextView
@@ -87,6 +89,19 @@
             android:textSize="@dimen/text_large"
             tools:text="A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground forming in every town, until an eccentric gets in the way and ignites an out-of-control spiral toward oblivion.        " />
 
+        <com.sackcentury.shinebuttonlib.ShineButton
+            android:id="@+id/movieFavourite"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/movieImageView"
+            android:layout_alignEnd="@+id/movieImageView"
+            android:layout_alignRight="@+id/movieImageView"
+            android:layout_margin="@dimen/margin_normal"
+            android:src="@android:color/darker_gray"
+            app:allow_random_color="false"
+            app:btn_color="@android:color/darker_gray"
+            app:btn_fill_color="@color/gold"
+            app:siShape="@raw/star" />
 
         <TextView
             android:id="@+id/movieVideoTitle"

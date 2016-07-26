@@ -20,9 +20,6 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-/**
- * TODO Rx java here?
- */
 public class RetrofitRepository implements Repository {
 
     private TheMovieDbApi theMovieDbApi;
@@ -97,6 +94,21 @@ public class RetrofitRepository implements Repository {
                 callback.onError(error);
             }
         });
+
+    }
+
+    @Override
+    public boolean isFavourite(int movieId) {
+        return false;
+    }
+
+    @Override
+    public void saveFavourite(Movie movie) {
+
+    }
+
+    @Override
+    public void removeFavourite(Movie movie) {
 
     }
 }

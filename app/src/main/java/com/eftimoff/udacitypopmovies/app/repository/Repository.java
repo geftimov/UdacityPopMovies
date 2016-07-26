@@ -15,4 +15,10 @@ public interface Repository {
     void getMoviesVideos(final int movieId, final RepositoryCallback<List<Video>> callback);
 
     void getMoviesReviews(final int movieId, final RepositoryCallback<List<Review>> callback);
+
+    boolean isFavourite(int movieId);
+
+    void saveFavourite(Movie movie);
+
+    void removeFavourite(Movie movie);
 }

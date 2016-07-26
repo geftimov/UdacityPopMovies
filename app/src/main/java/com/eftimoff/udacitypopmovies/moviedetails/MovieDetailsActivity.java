@@ -31,6 +31,7 @@ import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapter;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
 import com.eftimoff.udacitypopmovies.moviedetails.presenter.MovieDetailsPresenter;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MovieDetailsActivity extends BaseActivity implements MovieDetailsView, VideoAdapterListener, ReviewAdapterListener {
 
@@ -64,6 +66,8 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     TextView movieReviewsTitle;
     @BindView(R.id.movieReviews)
     RecyclerView movieReviews;
+    @BindView(R.id.movieFavourite)
+    ShineButton movieFavourite;
 
     @Inject
     MovieDetailsPresenter movieDetailsPresenter;
@@ -96,6 +100,7 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         initLists();
         movieDetailsPresenter.getVideos(movie.getId());
         movieDetailsPresenter.getReviews(movie.getId());
+        movieFavourite.setChecked(movieDetailsPresenter.isFavourite(movie.getId()));
     }
 
     @Override
@@ -236,6 +241,15 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
         movieReviews.setHasFixedSize(true);
         movieReviews.setLayoutManager(new LinearLayoutManager(this));
         movieReviews.setAdapter(reviewAdapter);
+    }
+
+    @OnClick(R.id.movieFavourite)
+    public void onMovieFavourite() {
+        if (movieFavourite.isChecked()) {
+            movieDetailsPresenter.saveFavourite(movie);
+        } else {
+            movieDetailsPresenter.removeFavourite(movie);
+        }
     }
 
     @Override
