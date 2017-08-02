@@ -28,9 +28,7 @@ public class PopMoviesActivity extends BaseActivity implements PostersFragmentAc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop_movies);
         ButterKnife.bind(this);
-        if (savedInstanceState == null) {
-            startFragment(PostersFragment.newInstance(), R.id.container);
-        }
+        startFragment(PostersFragment.newInstance(), R.id.container);
     }
 
     @Override

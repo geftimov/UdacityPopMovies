@@ -14,11 +14,12 @@ import android.widget.Toast;
 import com.eftimoff.udacitypopmovies.PopMoviesApplication;
 import com.eftimoff.udacitypopmovies.R;
 import com.eftimoff.udacitypopmovies.app.BaseFragment;
+import com.eftimoff.udacitypopmovies.app.models.Movie;
+import com.eftimoff.udacitypopmovies.favourites.FavouritesActivity;
 import com.eftimoff.udacitypopmovies.popmovies.posters.adapter.PosterAdapterListener;
 import com.eftimoff.udacitypopmovies.popmovies.posters.adapter.PostersAdapter;
 import com.eftimoff.udacitypopmovies.popmovies.posters.di.PostersModule;
 import com.eftimoff.udacitypopmovies.popmovies.posters.presenter.PostersPresenter;
-import com.eftimoff.udacitypopmovies.app.models.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,10 +114,17 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
             case R.id.movies_menu_sort_popular:
                 onMoviesPopularClick();
                 break;
+            case R.id.favourites:
+                onFavouritesClick();
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void onFavouritesClick() {
+        FavouritesActivity.start(getContext());
     }
 
     private void onMoviesPopularClick() {

@@ -1,6 +1,8 @@
 package com.eftimoff.udacitypopmovies.app.di;
 
 import com.eftimoff.udacitypopmovies.app.repository.RepositoryModule;
+import com.eftimoff.udacitypopmovies.favourites.di.FavouritesComponent;
+import com.eftimoff.udacitypopmovies.favourites.di.FavouritesModule;
 import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsComponent;
 import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
 import com.eftimoff.udacitypopmovies.popmovies.posters.di.PostersComponent;
@@ -15,5 +17,6 @@ public interface PopMoviesComponent {
 
     MovieDetailsComponent plus(final MovieDetailsModule postersModule);
 
+    FavouritesComponent plus(final FavouritesModule favouritesModule);
 
 }

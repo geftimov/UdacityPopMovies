@@ -10,4 +10,5 @@
     <string name="reviews">Reviews</string>
     <string name="content_description_play">Play</string>
     <string name="content_description_poster">Poster</string>
+    <string name="favourites_title">Favourites</string>
 </resources>

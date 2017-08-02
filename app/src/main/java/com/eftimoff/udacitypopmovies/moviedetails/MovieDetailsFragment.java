@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +28,7 @@ import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapter;
 import com.eftimoff.udacitypopmovies.moviedetails.adapter.VideoAdapterListener;
 import com.eftimoff.udacitypopmovies.moviedetails.di.MovieDetailsModule;
 import com.eftimoff.udacitypopmovies.moviedetails.presenter.MovieDetailsPresenter;
+import com.sackcentury.shinebuttonlib.ShineButton;
 
 import java.util.List;
 
@@ -36,6 +36,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MovieDetailsFragment extends BaseFragment implements MovieDetailsView, VideoAdapterListener, ReviewAdapterListener {
 
@@ -47,16 +48,14 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     ImageView movieImageView;
     @BindView(R.id.movieScore)
     TextView movieScore;
+    @BindView(R.id.movieDescription)
+    TextView movieDescription;
     @BindView(R.id.firstGenre)
     TextView firstGenre;
     @BindView(R.id.secondGenre)
     TextView secondGenre;
     @BindView(R.id.thirdGenre)
     TextView thirdGenre;
-    @BindView(R.id.movieDescription)
-    TextView movieDescription;
-    @BindView(R.id.movieContainer)
-    RelativeLayout movieContainer;
     @BindView(R.id.movieVideos)
     RecyclerView movieVideos;
     @BindView(R.id.movieVideoTitle)
@@ -65,6 +64,8 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     TextView movieReviewsTitle;
     @BindView(R.id.movieReviews)
     RecyclerView movieReviews;
+    @BindView(R.id.movieFavourite)
+    ShineButton movieFavourite;
 
     @Inject
     VideoAdapter videoAdapter;
@@ -89,6 +90,11 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         movie = getArguments().getParcelable(EXTRA_MOVIE);
+
+        PopMoviesApplication
+                .getComponent()
+                .plus(new MovieDetailsModule(this, this, this))
+                .inject(this);
 
         movieDetailsPresenter.getVideos(movie.getId());
         movieDetailsPresenter.getReviews(movie.getId());
@@ -116,6 +122,16 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
         movieDescription.setText(movie.getDescription());
         initGenres();
         initLists();
+        movieFavourite.setChecked(movieDetailsPresenter.isFavourite(movie.getId()));
+    }
+
+    @OnClick(R.id.movieFavourite)
+    public void onMovieFavourite() {
+        if (movieFavourite.isChecked()) {
+            movieDetailsPresenter.saveFavourite(movie, reviewAdapter.getReviews(), videoAdapter.getVideos());
+        } else {
+            movieDetailsPresenter.removeFavourite(movie);
+        }
     }
 
     private void initGenres() {

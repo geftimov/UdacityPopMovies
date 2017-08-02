@@ -13,6 +13,7 @@ import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.VideoListDao
 import com.eftimoff.udacitypopmovies.app.repository.storage.LocalStorage;
 import com.eftimoff.udacitypopmovies.app.repository.storage.MovieWrapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -114,5 +115,16 @@ public class RepositoryImpl implements Repository {
     @Override
     public void removeFavourite(int movieId) {
         localStorage.removeFavourite(movieId);
+    }
+
+    @Override
+    public void getFavourites(RepositoryCallback<List<Movie>> callback) {
+        List<Movie> movies = new ArrayList<>();
+
+        for (MovieWrapper movieWrapper : localStorage.getFavourites().values()) {
+            movies.add(movieWrapper.getMovie());
+        }
+
+        callback.onSuccess(movies);
     }
 }

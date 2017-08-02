@@ -21,4 +21,6 @@ public interface Repository {
     void saveFavourite(Movie movie, List<Review> review, List<Video> video);
 
     void removeFavourite(int movieId);
+
+    void getFavourites(final RepositoryCallback<List<Movie>> callback);
 }

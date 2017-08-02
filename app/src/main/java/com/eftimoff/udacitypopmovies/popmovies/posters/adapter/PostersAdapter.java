@@ -43,7 +43,9 @@ public class PostersAdapter extends SelectableRecyclerViewAdapter<PostersAdapter
             public void onClick(View v) {
                 final int position = postersViewHolder.getAdapterPosition();
                 final Movie movie = movies.get(position);
-                posterAdapterListener.onMovieClicked(postersViewHolder.posterImageView, movie);
+                if (posterAdapterListener != null) {
+                    posterAdapterListener.onMovieClicked(postersViewHolder.posterImageView, movie);
+                }
                 if (isMasterDetailFlow) {
                     clearSelections();
                     setSelected(position);
