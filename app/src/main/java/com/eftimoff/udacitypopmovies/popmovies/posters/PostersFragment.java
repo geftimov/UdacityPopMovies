@@ -62,18 +62,15 @@ public class PostersFragment extends BaseFragment implements PostersView, Poster
         postersRecyclerView.setHasFixedSize(true);
         postersRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), getResources().getInteger(R.integer.pop_movies_column_number)));
         postersRecyclerView.setAdapter(postersAdapter);
-        setHasOptionsMenu(true);
-        return view;
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
             postersAdapter.setMovies((List<Movie>) savedInstanceState.getSerializable(STATE_ITEMS));
         } else {
             postersPresenter.getPopularMovies();
         }
+
+        setHasOptionsMenu(true);
+        return view;
     }
 
     @Override
