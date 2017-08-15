@@ -111,9 +111,9 @@ public class MovieDetailsFragment extends BaseFragment implements MovieDetailsVi
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final String year = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf("-"));
+        final String year = movie.getReleaseDate();
         final SpannableString spannableString = new SpannableString("(" + year + ") " + movie.getTitle());
-        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.gold)), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getActivity(), R.color.gold)), 0, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         movieTitle.setText(spannableString);
         Glide.with(this)
                 .load(movie.getImageUrl())

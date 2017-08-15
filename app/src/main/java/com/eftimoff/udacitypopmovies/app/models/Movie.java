@@ -1,8 +1,13 @@
 package com.eftimoff.udacitypopmovies.app.models;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
+import com.eftimoff.udacitypopmovies.data.MoviesContract;
+
+import java.util.Arrays;
 import java.util.List;
 
 public class Movie implements Parcelable {
@@ -29,6 +34,17 @@ public class Movie implements Parcelable {
 
 
     public Movie() {
+    }
+
+    public Movie(Cursor cursor) {
+        id = cursor.getInt(cursor.getColumnIndex(MoviesContract.FavouriteEntry._ID));
+        title = cursor.getString(cursor.getColumnIndex(MoviesContract.FavouriteEntry.COLUMN_TITLE));
+        imageUrl = cursor.getString(cursor.getColumnIndex(MoviesContract.FavouriteEntry.COLUMN_IMAGE_URL));
+        releaseDate = cursor.getString(cursor.getColumnIndex(MoviesContract.FavouriteEntry.COLUMN_RELEASE_DATE));
+        score = cursor.getFloat(cursor.getColumnIndex(MoviesContract.FavouriteEntry.COLUMN_SCORE));
+        genres = cursor.getString(cursor.getColumnIndex(MoviesContract.FavouriteEntry.COLUMN_GENRES));
+        description = cursor.getString(cursor.getColumnIndex(MoviesContract.FavouriteEntry.COLUMN_DESCRIPTION));
+        genreList = Arrays.asList(TextUtils.split(genres, " , "));
     }
 
     protected Movie(Parcel in) {

@@ -1,63 +1,90 @@
 package com.eftimoff.udacitypopmovies.app.repository.storage;
 
+import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.eftimoff.udacitypopmovies.app.models.Movie;
+import com.eftimoff.udacitypopmovies.data.MoviesContract;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocalStorageImpl implements LocalStorage {
 
-    public static final String KEY_FAVOURITES = "favourites";
-
-    private SharedPreferences sharedPreferences;
-    private Gson gson = new Gson();
+    private final Context context;
 
     public LocalStorageImpl(Context context) {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.context = context;
     }
 
     @Override
-    @Nullable
-    public MovieWrapper getFavourite(int movieId) {
-        final Map<Integer, MovieWrapper> favourites = getFavourites();
-        return favourites.get(movieId);
+    public boolean isFavourite(int movieId) {
+        boolean favorite = false;
+        Cursor cursor = context.getContentResolver().query(
+                MoviesContract.FavouriteEntry.CONTENT_URI,
+                null,
+                MoviesContract.COLUMN_MOVIE_ID_KEY + " = " + movieId,
+                null,
+                null
+        );
+        if (cursor != null) {
+            favorite = cursor.getCount() != 0;
+            cursor.close();
+        }
+        return favorite;
     }
 
     @Override
     @NonNull
-    public Map<Integer, MovieWrapper> getFavourites() {
-        Map<Integer, MovieWrapper> map;
-        final String mapString = sharedPreferences.getString(KEY_FAVOURITES, null);
-        if (mapString == null) {
-            map = new HashMap<>();
-        } else {
-            java.lang.reflect.Type type = new TypeToken<HashMap<Integer, MovieWrapper>>() {
-            }.getType();
-            map = gson.fromJson(mapString, type);
+    public List<Movie> getFavourites() {
+        List<Movie> movies = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(
+                MoviesContract.FavouriteEntry.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (cursor == null) {
+            return movies;
         }
-        return map;
+
+        try {
+            while (cursor.moveToNext()) {
+                movies.add(new Movie(cursor));
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return movies;
     }
 
     @Override
-    public void saveFavourite(MovieWrapper movieWrapper) {
-        final Map<Integer, MovieWrapper> favourites = getFavourites();
-        favourites.put(movieWrapper.getId(), movieWrapper);
-        final String json = gson.toJson(favourites);
-        sharedPreferences.edit().putString(KEY_FAVOURITES, json).apply();
+    public void saveFavourite(Movie movie) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MoviesContract.FavouriteEntry._ID, movie.getId());
+        contentValues.put(MoviesContract.FavouriteEntry.COLUMN_TITLE, movie.getTitle());
+        contentValues.put(MoviesContract.FavouriteEntry.COLUMN_DESCRIPTION, movie.getDescription());
+        contentValues.put(MoviesContract.FavouriteEntry.COLUMN_RELEASE_DATE, movie.getReleaseDate());
+        contentValues.put(MoviesContract.FavouriteEntry.COLUMN_IMAGE_URL, movie.getImageUrl());
+        contentValues.put(MoviesContract.FavouriteEntry.COLUMN_SCORE, movie.getScore());
+        contentValues.put(MoviesContract.FavouriteEntry.COLUMN_GENRES, movie.getGenres());
+
+        context.getContentResolver().insert(MoviesContract.FavouriteEntry.CONTENT_URI, contentValues);
     }
 
     @Override
     public void removeFavourite(int movieId) {
-        final Map<Integer, MovieWrapper> favourites = getFavourites();
-        favourites.remove(movieId);
-        final String json = gson.toJson(favourites);
-        sharedPreferences.edit().putString(KEY_FAVOURITES, json).apply();
+        context.getContentResolver().delete(
+                MoviesContract.FavouriteEntry.CONTENT_URI,
+                MoviesContract.COLUMN_MOVIE_ID_KEY + " = " + movieId,
+                null
+        );
     }
+
+
 }

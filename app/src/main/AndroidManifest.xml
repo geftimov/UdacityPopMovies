@@ -27,6 +27,10 @@
             android:name=".favourites.FavouritesActivity"
             android:label="@string/favourites_title" />
 
+        <provider
+            android:name=".data.FavouritesProvider"
+            android:authorities="com.eftimoff.udacitypopmovies"
+            android:exported="false" />
     </application>
 
 </manifest>

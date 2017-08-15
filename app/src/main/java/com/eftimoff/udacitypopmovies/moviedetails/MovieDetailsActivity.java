@@ -120,9 +120,9 @@ public class MovieDetailsActivity extends BaseActivity implements MovieDetailsVi
     private void initActionBar() {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            final String year = movie.getReleaseDate().substring(0, movie.getReleaseDate().indexOf("-"));
+            final String year = movie.getReleaseDate();
             final SpannableString spannableString = new SpannableString("(" + year + ") " + movie.getTitle());
-            spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.gold)), 0, 6, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.gold)), 0, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             getSupportActionBar().setTitle(spannableString);
         }
     }

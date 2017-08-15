@@ -11,9 +11,7 @@ import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.MovieListDao
 import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.ReviewListDao;
 import com.eftimoff.udacitypopmovies.app.repository.retrofit.models.VideoListDao;
 import com.eftimoff.udacitypopmovies.app.repository.storage.LocalStorage;
-import com.eftimoff.udacitypopmovies.app.repository.storage.MovieWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -86,7 +84,6 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void getMoviesReviews(final int movieId, final RepositoryCallback<List<Review>> callback) {
-
         theMovieDbApi.getMovieReviews(movieId, new Callback<ReviewListDao>() {
             @Override
             public void success(ReviewListDao reviewListDao, Response response) {
@@ -98,18 +95,16 @@ public class RepositoryImpl implements Repository {
                 callback.onError(error);
             }
         });
-
     }
 
     @Override
     public boolean isFavourite(int movieId) {
-        return localStorage.getFavourite(movieId) != null;
+        return localStorage.isFavourite(movieId);
     }
 
     @Override
     public void saveFavourite(Movie movie, List<Review> review, List<Video> video) {
-        final MovieWrapper movieWrapper = new MovieWrapper(movie.getId(), movie, review, video);
-        localStorage.saveFavourite(movieWrapper);
+        localStorage.saveFavourite(movie);
     }
 
     @Override
@@ -119,12 +114,6 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public void getFavourites(RepositoryCallback<List<Movie>> callback) {
-        List<Movie> movies = new ArrayList<>();
-
-        for (MovieWrapper movieWrapper : localStorage.getFavourites().values()) {
-            movies.add(movieWrapper.getMovie());
-        }
-
-        callback.onSuccess(movies);
+        callback.onSuccess(localStorage.getFavourites());
     }
 }

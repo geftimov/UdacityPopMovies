@@ -1,14 +1,16 @@
 package com.eftimoff.udacitypopmovies.app.repository.storage;
 
-import java.util.Map;
+import com.eftimoff.udacitypopmovies.app.models.Movie;
+
+import java.util.List;
 
 public interface LocalStorage {
 
-    MovieWrapper getFavourite(int movieId);
+    boolean isFavourite(int movieId);
 
-    Map<Integer, MovieWrapper> getFavourites();
+    List<Movie> getFavourites();
 
-    void saveFavourite(MovieWrapper movieWrapper);
+    void saveFavourite(Movie movie);
 
     void removeFavourite(int movieId);
 }
